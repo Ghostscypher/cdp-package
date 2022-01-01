@@ -70,14 +70,24 @@ class CreateClientCommand extends Command
             DB::commit();
 
             // Display the result
-            $this->info(sprintf("Service UUID: %s", $service->service_uuid));
+            $this->line(sprintf("Service UUID: %s", $service->service_uuid));
+            $this->line('');
+
             $this->info(sprintf("Product Name: %s", $service->product_name));
+            $this->line('');
+
             $this->info(sprintf("Deployment Url: %s", $service->deployment_url));
+            $this->line('');
+
             $this->info(sprintf("Client Key: %s", $service->credential->key));
+            $this->line('');
+
             $this->info(sprintf("Client Secret: %s", $service->credential->secret));
+            $this->line('');
 
             // JSON array
             $this->info(sprintf("Base64 all data: %s", base64_encode($service->toJSON())));
+            $this->line('');
             
         } catch(\Throwable $th){
             DB::rollBack();

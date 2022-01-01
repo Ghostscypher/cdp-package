@@ -2,7 +2,9 @@
 
 namespace Ghostscypher\CDP\Console;
 
+use Ghostscypher\CDP\Models\Service;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Input\InputOption;
 
 class RegisterClientCommand extends Command
@@ -13,11 +15,12 @@ class RegisterClientCommand extends Command
      * @var string
      */
     protected $signature = 'cdp-client:register
-                            {--client_name= : The name/uuid of the client}
+                            {--client_uuid= : The uuid of the client}
                             {--client_key= : The client key}
                             {--client_secret : The client secret}
                             {--product_name= : The name of the product e.g. Afri link}
-                            {--deployment_url= : The URL called when this service is being deployed}';
+                            {--deployment_url= : The URL called when this service is being deployed}
+                            {--base64_all= : Base 64 of all the data generated}';
 
     /**
      * The console command description.
@@ -42,37 +45,79 @@ class RegisterClientCommand extends Command
      * @return int
      */
     public function handle()
-    {
-        if(!$this->option('client_name'))
-        {
-            $this->input->setOption('client_name', $this->askForClientName());
+    {  
+        $data = [];
+
+        if(!$this->option('base64_all')){
+            if(!$this->option('client_uuid'))
+            {
+                $this->input->setOption('client_uuid', $this->askForClientUUID());
+            }
+
+            if(!$this->option('client_key'))
+            {
+                $this->input->setOption('client_key', $this->askForClientSecret());
+            }
+
+            if(!$this->option('client_secret'))
+            {
+                $this->input->setOption('client_secret', $this->askForClientSecret());
+            }
+
+            if(!$this->option('product_name'))
+            {
+                $this->input->setOption('product_name', $this->askForProductName());
+            }
+
+            if(!$this->option('deployment_url'))
+            {
+                $this->input->setOption('deployment_url', $this->askForDeploymentUrl());
+            }
+
+
+            $service = new Service();
+
+            $service->setRawAttributes([
+                'service_uuid' => $this->option('client_uuid'),
+                'product_name' => $this->option('product_name'),
+                'deployment_url' => $this->option('deployment_url'),
+            ]);
+
+            $service->credential()->setRawAttributes([
+                'key' => $this->option('client_key'), 
+                'secret' => $this->option('client_secret'),
+            ]);
+
+        } else {
+            $service = (new Service())->fromJSON(base64_decode($this->option('base64_all')));
+            $service->id = $service->created_at = $service->updated_at = null;
+
+            $service->credential->id
+                = $service->credential->id->created_at
+                = $service->credential->id->updated_at = null;
         }
 
-        if(!$this->option('client_key'))
-        {
-            $this->input->setOption('client_key', $this->askForClientSecret());
+        DB::beginTransaction();
+
+        try{
+
+            $service->save();
+            $service->credentials()->save();
+
+            DB::commit();
+
+            $this->line('Successfully registered client');
+        } catch(\Throwable $th){
+            DB::rollBack();
+
+            throw $th;
         }
 
-        if(!$this->option('client_secret'))
-        {
-            $this->input->setOption('client_secret', $this->askForClientSecret());
-        }
-
-        if(!$this->option('product_name'))
-        {
-            $this->input->setOption('product_name', $this->askForProductName());
-        }
-
-        if(!$this->option('deployment_url'))
-        {
-            $this->input->setOption('deployment_url', $this->askForDeploymentUrl());
-        }
-        
         return 0;
     }
 
-    protected function askForClientName(){
-        return $this->ask('Input client name: ');
+    protected function askForClientUUID(){
+        return $this->ask('Input client UUID: ');
     }
 
     protected function askForClientKey(){
