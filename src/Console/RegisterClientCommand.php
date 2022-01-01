@@ -49,9 +49,10 @@ class RegisterClientCommand extends Command
     {  
         $data = null;
 
-        if(!$this->option('base64_all')){
+        if($this->option('base64_all')){
             $data = json_decode(base64_decode($this->option('base64_all')));
         }
+
         if(!$this->option('client_uuid'))
         {
             $this->input->setOption('client_uuid', $data->service_uuid ?? $this->askForClientUUID());
