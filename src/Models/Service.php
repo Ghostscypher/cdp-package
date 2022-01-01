@@ -22,6 +22,6 @@ class Service extends Model
 
     public function service()
     {
-        return $this->morphTo(id: 'service_uuid', ownerKey: 'service_uuid');
+        return $this->morphTo();
     }
 }
