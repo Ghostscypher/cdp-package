@@ -45,27 +45,27 @@ class RegisterClientCommand extends Command
     {
         if(!$this->option('client_name'))
         {
-            $this->addOption('client_name', mode: InputOption::VALUE_REQUIRED, default: $this->askForClientName());
+            $this->input->setOption('client_name', $this->askForClientName());
         }
 
         if(!$this->option('client_key'))
         {
-            $this->addOption('client_key', mode: InputOption::VALUE_REQUIRED, default: $this->askForClientSecret());
+            $this->input->setOption('client_key', $this->askForClientSecret());
         }
 
         if(!$this->option('client_secret'))
         {
-            $this->addOption('client_secret', mode: InputOption::VALUE_REQUIRED, default: $this->askForClientSecret());
+            $this->input->setOption('client_secret', $this->askForClientSecret());
         }
 
         if(!$this->option('product_name'))
         {
-            $this->addOption('product_name', mode: InputOption::VALUE_REQUIRED, default: $this->askForProductName());
+            $this->input->setOption('product_name', $this->askForProductName());
         }
 
         if(!$this->option('deployment_url'))
         {
-            $this->addOption('deployment_url', mode: InputOption::VALUE_REQUIRED, default: $this->askForDeploymentUrl());
+            $this->input->setOption('deployment_url', $this->askForDeploymentUrl());
         }
         
         return 0;

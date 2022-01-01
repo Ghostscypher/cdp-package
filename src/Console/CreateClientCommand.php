@@ -45,12 +45,12 @@ class CreateClientCommand extends Command
     {
         if(!$this->option('product_name'))
         {
-            $this->addOption('product_name', mode: InputOption::VALUE_REQUIRED, default: $this->askForProductName());
+            $this->input->setOption('product_name', $this->askForProductName());
         }
 
         if(!$this->option('deployment_url'))
         {
-            $this->addOption('deployment_url', mode: InputOption::VALUE_REQUIRED, default: $this->askForDeploymentUrl());
+            $this->input->setOption('deployment_url', $this->askForDeploymentUrl());
         }
      
         DB::beginTransaction();
