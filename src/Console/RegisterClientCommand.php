@@ -75,7 +75,7 @@ class RegisterClientCommand extends Command
 
         if(!$this->option('deployment_url'))
         {
-            $this->input->setOption('deployment_url', $data->credential->deployment_url ?? $this->askForDeploymentUrl());
+            $this->input->setOption('deployment_url', $data->deployment_url ?? $this->askForDeploymentUrl());
         }
 
         DB::beginTransaction();
