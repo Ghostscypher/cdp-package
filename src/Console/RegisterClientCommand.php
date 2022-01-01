@@ -56,7 +56,7 @@ class RegisterClientCommand extends Command
 
             if(!$this->option('client_key'))
             {
-                $this->input->setOption('client_key', $this->askForClientSecret());
+                $this->input->setOption('client_key', $this->askForClientKey());
             }
 
             if(!$this->option('client_secret'))
