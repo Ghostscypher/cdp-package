@@ -3,6 +3,7 @@
 namespace Ghostscypher\CDP\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class InstallCommand extends Command
 {
@@ -37,6 +38,29 @@ class InstallCommand extends Command
      */
     public function handle()
     {
+        $this->info('Publishing migrations...');
+
+        $params = [
+            '--provider' => "Ghostscypher\CDP\CDPServiceProvider",
+            '--tag' => "cdp-migrations"
+        ];
+
+        Artisan::call('vendor:publish', $params);
+
+        $this->info('Published migrations');
+
+        // Config
+        $this->info('Publishing config...');
+
+        $params = [
+            '--provider' => "Ghostscypher\CDP\CDPServiceProvider",
+            '--tag' => "cdp-config"
+        ];
+
+        Artisan::call('vendor:publish', $params);
+
+        $this->info('Published config');
+
         return 0;
     }
 }

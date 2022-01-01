@@ -2,7 +2,10 @@
 
 namespace Ghostscypher\CDP\Console;
 
+use Ghostscypher\CDP\Models\Service;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CreateClientCommand extends Command
 {
@@ -12,7 +15,8 @@ class CreateClientCommand extends Command
      * @var string
      */
     protected $signature = 'cdp-client:create
-                            {--client-name= : The name of the client}';
+                            {--product_name= : The name of the product e.g. Afri link}
+                            {--deployment_url= : The URL called when this service is being deployed}';
 
     /**
      * The console command description.
@@ -38,6 +42,56 @@ class CreateClientCommand extends Command
      */
     public function handle()
     {
+        if(!$this->hasOption('product_name'))
+        {
+            $this->addOption('product_name', default: $this->askForProductName());
+        }
+
+        if(!$this->hasOption('deployment_url'))
+        {
+            $this->addOption('deployment_url', default: $this->askForDeploymentUrl());
+        }
+     
+        DB::beginTransaction();
+
+        try{
+            $service = Service::create([
+                'service_uuid' => Str::uuid(),
+                'product_name' => $this->option('product_name'),
+                'deployment_url' => $this->option('deployment_url'),
+            ]);
+
+            $service->credential()->create([
+                'key' => Str::random(32), 
+                'secret' => Str::random(16),
+            ]);
+
+            DB::commit();
+
+            // Display the result
+            $this->info(sprintf("Service UUID: %s", $service->service_uuid));
+            $this->info(sprintf("Product Name: %s", $service->product_name));
+            $this->info(sprintf("Deployment Url: %s", $service->deployment_url));
+            $this->info(sprintf("Client Key: %s", $service->credential->key));
+            $this->info(sprintf("Client Secret: %s", $service->credential->secret));
+
+            // JSON array
+            $this->info(sprintf("Base64 all data: %s", base64_encode($service->toJSON())));
+            
+        } catch(\Throwable $th){
+            DB::rollBack();
+
+            throw $th;
+        }
+
         return 0;
+    }
+
+    protected function askForProductName(){
+        return $this->ask('Input product name: ');
+    }
+
+    protected function askForDeploymentUrl(){
+        return $this->ask('Input deployment url: ');
     }
 }

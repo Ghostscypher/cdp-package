@@ -78,7 +78,7 @@ return [
                 'deployment' => \Ghostscypher\CDP\Models\Deployment::class,
                 'log' => \Ghostscypher\CDP\Models\Log::class,
                 'service' => \Ghostscypher\CDP\Models\Service::class,
-                'this_service' => \Ghostscypher\CDP\Models\ThisService::class,
+                'credential' => \Ghostscypher\CDP\Models\Credential::class,
             ],
         ],
     ],

@@ -15,7 +15,7 @@ class CreateCdpServicesTable extends Migration
     {
         Schema::create('cdp_services', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->uuid('service_uuid')->unique()->index();
             $table->string('product_name');
             $table->string('deployment_url');
             $table->longText('description')->nullable();
