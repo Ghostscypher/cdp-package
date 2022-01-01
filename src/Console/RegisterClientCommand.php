@@ -5,6 +5,7 @@ namespace Ghostscypher\CDP\Console;
 use Ghostscypher\CDP\Models\Service;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 use Symfony\Component\Console\Input\InputOption;
 
 class RegisterClientCommand extends Command
@@ -46,7 +47,7 @@ class RegisterClientCommand extends Command
      */
     public function handle()
     {  
-        $data = [];
+        $service = null;
 
         if(!$this->option('base64_all')){
             if(!$this->option('client_uuid'))
@@ -74,30 +75,31 @@ class RegisterClientCommand extends Command
                 $this->input->setOption('deployment_url', $this->askForDeploymentUrl());
             }
 
-
-            $service = new Service();
-
-            $service->setRawAttributes([
-                'service_uuid' => $this->option('client_uuid'),
-                'product_name' => $this->option('product_name'),
-                'deployment_url' => $this->option('deployment_url'),
-            ]);
-
-            $service->credential()->setRawAttributes([
-                'key' => $this->option('client_key'), 
-                'secret' => $this->option('client_secret'),
-            ]);
-
         } else {
-            $service = (new Service())->fromJSON(base64_decode($this->option('base64_all')));
+            $service = (new Service)->fromJson(base64_decode($this->option('base64_all')));
         }
 
         DB::beginTransaction();
 
         try{
 
-            $service->save();
-            $service->credentials()->save();
+            $service = $service ?? new Service();
+
+            if(!$this->option('base64_all')){
+                $service->create([
+                    'service_uuid' => $this->option('client_uuid'),
+                    'product_name' => $this->option('product_name'),
+                    'deployment_url' => $this->option('deployment_url'),
+                ]);
+
+                $service->credential()->create([
+                    'key' => $this->option('client_key'), 
+                    'secret' => $this->option('client_secret'),
+                ]);
+            } else {
+                $service->save();
+                $service->credential()->save();
+            }
 
             DB::commit();
 
