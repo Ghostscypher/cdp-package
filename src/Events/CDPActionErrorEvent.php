@@ -1,6 +1,6 @@
 <?php
 
-namespace Ghostscypher\CDP\Actions\Events;
+namespace Ghostscypher\CDP\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;

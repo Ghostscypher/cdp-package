@@ -1,6 +1,6 @@
 <?php
 
-namespace Ghostscypher\CDP\Middleware;
+namespace Ghostscypher\CDP\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
