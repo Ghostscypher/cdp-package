@@ -24,7 +24,7 @@ class CDPServiceProvider extends ServiceProvider
             ], 'cdp-config');
 
             $this->publishes([
-                __DIR__ . '/../database/migrations/cdp/' => database_path('migrations')
+                __DIR__ . '/../database/migrations' => database_path('migrations/cdp')
             ], 'cdp-migrations');
 
             $this->commands([
