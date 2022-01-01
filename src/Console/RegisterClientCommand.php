@@ -42,27 +42,27 @@ class RegisterClientCommand extends Command
      */
     public function handle()
     {
-        if(!$this->hasOption('client_name'))
+        if(!$this->option('client_name'))
         {
             $this->addOption('client_name', default: $this->askForClientName());
         }
 
-        if(!$this->hasOption('client_key'))
+        if(!$this->option('client_key'))
         {
             $this->addOption('client_key', default: $this->askForClientSecret());
         }
 
-        if(!$this->hasOption('client_secret'))
+        if(!$this->option('client_secret'))
         {
             $this->addOption('client_secret', default: $this->askForClientSecret());
         }
 
-        if(!$this->hasOption('product_name'))
+        if(!$this->option('product_name'))
         {
             $this->addOption('product_name', default: $this->askForProductName());
         }
 
-        if(!$this->hasOption('deployment_url'))
+        if(!$this->option('deployment_url'))
         {
             $this->addOption('deployment_url', default: $this->askForDeploymentUrl());
         }

@@ -42,12 +42,12 @@ class CreateClientCommand extends Command
      */
     public function handle()
     {
-        if(!$this->hasOption('product_name'))
+        if(!$this->option('product_name'))
         {
             $this->addOption('product_name', default: $this->askForProductName());
         }
 
-        if(!$this->hasOption('deployment_url'))
+        if(!$this->option('deployment_url'))
         {
             $this->addOption('deployment_url', default: $this->askForDeploymentUrl());
         }
