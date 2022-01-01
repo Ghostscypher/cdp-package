@@ -6,6 +6,7 @@ use Ghostscypher\CDP\Models\Service;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Symfony\Component\Console\Input\InputOption;
 
 class CreateClientCommand extends Command
 {
@@ -44,12 +45,12 @@ class CreateClientCommand extends Command
     {
         if(!$this->option('product_name'))
         {
-            $this->addOption('product_name', default: $this->askForProductName());
+            $this->addOption('product_name', mode: InputOption::VALUE_REQUIRED, default: $this->askForProductName());
         }
 
         if(!$this->option('deployment_url'))
         {
-            $this->addOption('deployment_url', default: $this->askForDeploymentUrl());
+            $this->addOption('deployment_url', mode: InputOption::VALUE_REQUIRED, default: $this->askForDeploymentUrl());
         }
      
         DB::beginTransaction();

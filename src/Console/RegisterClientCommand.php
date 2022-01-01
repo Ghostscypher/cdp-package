@@ -3,6 +3,7 @@
 namespace Ghostscypher\CDP\Console;
 
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Input\InputOption;
 
 class RegisterClientCommand extends Command
 {
@@ -44,27 +45,27 @@ class RegisterClientCommand extends Command
     {
         if(!$this->option('client_name'))
         {
-            $this->addOption('client_name', default: $this->askForClientName());
+            $this->addOption('client_name', mode: InputOption::VALUE_REQUIRED, default: $this->askForClientName());
         }
 
         if(!$this->option('client_key'))
         {
-            $this->addOption('client_key', default: $this->askForClientSecret());
+            $this->addOption('client_key', mode: InputOption::VALUE_REQUIRED, default: $this->askForClientSecret());
         }
 
         if(!$this->option('client_secret'))
         {
-            $this->addOption('client_secret', default: $this->askForClientSecret());
+            $this->addOption('client_secret', mode: InputOption::VALUE_REQUIRED, default: $this->askForClientSecret());
         }
 
         if(!$this->option('product_name'))
         {
-            $this->addOption('product_name', default: $this->askForProductName());
+            $this->addOption('product_name', mode: InputOption::VALUE_REQUIRED, default: $this->askForProductName());
         }
 
         if(!$this->option('deployment_url'))
         {
-            $this->addOption('deployment_url', default: $this->askForDeploymentUrl());
+            $this->addOption('deployment_url', mode: InputOption::VALUE_REQUIRED, default: $this->askForDeploymentUrl());
         }
         
         return 0;
