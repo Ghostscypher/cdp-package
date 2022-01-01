@@ -47,60 +47,52 @@ class RegisterClientCommand extends Command
      */
     public function handle()
     {  
-        $service = null;
+        $data = null;
 
         if(!$this->option('base64_all')){
-            if(!$this->option('client_uuid'))
-            {
-                $this->input->setOption('client_uuid', $this->askForClientUUID());
-            }
+            $data = json_decode(base64_decode($this->option('base64_all')));
+        }
+        if(!$this->option('client_uuid'))
+        {
+            $this->input->setOption('client_uuid', $data->service_uuid ?? $this->askForClientUUID());
+        }
 
-            if(!$this->option('client_key'))
-            {
-                $this->input->setOption('client_key', $this->askForClientKey());
-            }
+        if(!$this->option('client_key'))
+        {
+            $this->input->setOption('client_key', $data->credential->key ?? $this->askForClientKey());
+        }
 
-            if(!$this->option('client_secret'))
-            {
-                $this->input->setOption('client_secret', $this->askForClientSecret());
-            }
+        if(!$this->option('client_secret'))
+        {
+            $this->input->setOption('client_secret', $data->credential->secret ?? $this->askForClientSecret());
+        }
 
-            if(!$this->option('product_name'))
-            {
-                $this->input->setOption('product_name', $this->askForProductName());
-            }
+        if(!$this->option('product_name'))
+        {
+            $this->input->setOption('product_name', $data->product_name ?? $this->askForProductName());
+        }
 
-            if(!$this->option('deployment_url'))
-            {
-                $this->input->setOption('deployment_url', $this->askForDeploymentUrl());
-            }
-
-        } else {
-            $service = new Service;
-            $service->fromJson(base64_decode($this->option('base64_all')));
+        if(!$this->option('deployment_url'))
+        {
+            $this->input->setOption('deployment_url', $data->credential->deployment_url ?? $this->askForDeploymentUrl());
         }
 
         DB::beginTransaction();
 
         try{
 
-            $service = $service ?? new Service();
+            $service = new Service();
 
-            if(!$this->option('base64_all')){
-                $service->create([
-                    'service_uuid' => $this->option('client_uuid'),
-                    'product_name' => $this->option('product_name'),
-                    'deployment_url' => $this->option('deployment_url'),
-                ]);
+            $service->create([
+                'service_uuid' => $this->option('client_uuid'),
+                'product_name' => $this->option('product_name'),
+                'deployment_url' => $this->option('deployment_url'),
+            ]);
 
-                $service->credential()->create([
-                    'key' => $this->option('client_key'), 
-                    'secret' => $this->option('client_secret'),
-                ]);
-            } else {
-                $service->save();
-                $service->credential()->save();
-            }
+            $service->credential()->create([
+                'key' => $this->option('client_key'), 
+                'secret' => $this->option('client_secret'),
+            ]);
 
             DB::commit();
 
