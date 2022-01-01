@@ -12,11 +12,15 @@ class Deployment extends Model
 
     protected $table = 'cdp_deployments';
 
+    protected $fillable = [
+        'service_uuid', 'key', 'secret',
+    ];
+
     // Disable Laravel's mass assignment protection
     protected $guarded = [];
 
     public function service()
     {
-        return $this->morphTo();
+        return $this->morphTo(id: 'service_uuid', ownerKey: 'service_uuid');
     }
 }

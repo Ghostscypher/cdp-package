@@ -15,7 +15,7 @@ class CreateCdpCredentialsTable extends Migration
     {
         Schema::create('cdp_credentials', function (Blueprint $table) {
             $table->id();
-            $table->uuid('service_uuid')->unique()->index();
+            $table->string('service_uuid');
             $table->string('key');
             $table->string('secret');
             $table->timestamps();
