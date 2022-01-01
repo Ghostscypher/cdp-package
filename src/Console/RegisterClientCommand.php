@@ -90,11 +90,6 @@ class RegisterClientCommand extends Command
 
         } else {
             $service = (new Service())->fromJSON(base64_decode($this->option('base64_all')));
-            $service->id = $service->created_at = $service->updated_at = null;
-
-            $service->credential->id
-                = $service->credential->id->created_at
-                = $service->credential->id->updated_at = null;
         }
 
         DB::beginTransaction();
@@ -117,23 +112,23 @@ class RegisterClientCommand extends Command
     }
 
     protected function askForClientUUID(){
-        return $this->ask('Input client UUID: ');
+        return $this->ask('Input client UUID');
     }
 
     protected function askForClientKey(){
-        return $this->ask('Input client key: ');
+        return $this->ask('Input client key');
     }
 
     protected function askForClientSecret(){
-        return $this->ask('Input client secret: ');
+        return $this->ask('Input client secret');
     }
 
     protected function askForProductName(){
-        return $this->ask('Input product name: ');
+        return $this->ask('Input product name');
     }
 
     protected function askForDeploymentUrl(){
-        return $this->ask('Input deployment url: ');
+        return $this->ask('Input deployment url');
     }
 
 }

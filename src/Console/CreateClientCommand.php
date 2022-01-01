@@ -99,10 +99,10 @@ class CreateClientCommand extends Command
     }
 
     protected function askForProductName(){
-        return $this->ask('Input product name: ');
+        return $this->ask('Input product name');
     }
 
     protected function askForDeploymentUrl(){
-        return $this->ask('Input deployment url: ');
+        return $this->ask('Input deployment url');
     }
 }
