@@ -61,6 +61,15 @@ class InstallCommand extends Command
 
         $this->info('Published config');
 
+        if($this->wantToMigrate()){
+            Artisan::call("migrate --path=" . database_path('cdp'));
+        }
+
         return 0;
+    }
+
+    protected function wantToMigrate()
+    {
+        return $this->confirm("Do you want to run the migrations?", true);
     }
 }
