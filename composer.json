@@ -6,7 +6,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ghostscypher\\Cdp\\": "src/"
+            "Ghostscypher\\CDP\\": "src/"
         }
     },
     "authors": [{
@@ -20,7 +20,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Ghostscypher\\Cdp\\CDPServiceProvider"
+                "Ghostscypher\\CDP\\CDPServiceProvider"
             ]
         }
     },
