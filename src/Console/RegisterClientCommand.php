@@ -81,10 +81,8 @@ class RegisterClientCommand extends Command
         DB::beginTransaction();
 
         try{
-
-            $service = new Service();
-
-            $service->create([
+            
+            $service = Service::create([
                 'service_uuid' => $this->option('client_uuid'),
                 'product_name' => $this->option('product_name'),
                 'deployment_url' => $this->option('deployment_url'),
