@@ -76,7 +76,8 @@ class RegisterClientCommand extends Command
             }
 
         } else {
-            $service = (new Service)->fromJson(base64_decode($this->option('base64_all')));
+            $service = new Service;
+            $service->fromJson(base64_decode($this->option('base64_all')));
         }
 
         DB::beginTransaction();
