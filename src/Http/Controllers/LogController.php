@@ -22,13 +22,13 @@ class LogController
    {
         return new ApiResource(
                 CDP::serviceModel()
-                ->where('service_uuid', $service_uuid)
-                ->firstOrFail()
-                ->logs()
-                ->when($type && $type !== '', function($query) use ($type) {
-                    return $query->where('type', $type);
-                })
-                ->paginate());
+                    ->where('service_uuid', $service_uuid)
+                    ->firstOrFail()
+                    ->logs()
+                    ->when($type && $type !== '', function($query) use ($type) {
+                        return $query->where('type', $type);
+                    })
+                    ->paginate());
    }
 
    public function getLogsByName($name, $type = null)
@@ -46,13 +46,13 @@ class LogController
    {
         return new ApiResource(
                 CDP::serviceModel()
-                ->where('service_uuid', $service_uuid)
-                ->firstOrFail()
-                ->logs()
-                ->where('event_name', $name)
-                ->when($type && $type !== '', function($query) use ($type) {
-                    return $query->where('type', $type);
-                })
-                ->paginate());
+                    ->where('service_uuid', $service_uuid)
+                    ->firstOrFail()
+                    ->logs()
+                    ->where('event_name', $name)
+                    ->when($type && $type !== '', function($query) use ($type) {
+                        return $query->where('type', $type);
+                    })
+                    ->paginate());
    }
 }

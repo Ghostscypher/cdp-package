@@ -3,6 +3,7 @@
 namespace Ghostscypher\CDP;
 
 use Ghostscypher\CDP\Http\Controllers\LogController;
+use Ghostscypher\CDP\Http\Controllers\ServiceController;
 use Ghostscypher\CDP\Http\Controllers\TaskController;
 use Illuminate\Contracts\Routing\Registrar as Router;
 
@@ -56,6 +57,8 @@ class RouteRegistrar
 
                 $router->get('logs/{type?}', [LogController::class, 'getLogs'])->name('cdp.logs.index');
                 $router->get('logs/service/{service_uuid}/{type?}', [LogController::class, 'getServiceLogs'])->name('cdp.log.type.index');
+
+                $router->get('services/{service_uuid}/credential', [ServiceController::class, 'getCredentials'])->name('cdp.service.credential');
 
             });
     }
