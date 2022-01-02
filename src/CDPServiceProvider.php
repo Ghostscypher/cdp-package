@@ -4,6 +4,7 @@ namespace Ghostscypher\CDP;
 
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 
 class CDPServiceProvider extends ServiceProvider
 {
@@ -40,6 +41,23 @@ class CDPServiceProvider extends ServiceProvider
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('cdp_auth', \Ghostscypher\CDP\Http\Middleware\AuthorizeService::class);
         $router->aliasMiddleware('cdp_only', \Ghostscypher\CDP\Http\Middleware\CDPOnly::class);
+
+
+        Str::macro('toAlphaNumeric', function($str){
+            return preg_replace("/[^a-zA-Z0-9]+/", "", $str);
+        });
+
+        Str::macro('getNumeric', function($str){
+            return preg_replace("/[^0-9]+/", "", $str);
+        });
+
+        Str::macro('toAlphaNumericUppper', function($str){
+            return preg_replace("/[^A-Z]+/", "", $str);
+        });
+
+        Str::macro('toAlphaNumericLower', function($str){
+            return preg_replace("/[^a-z]+/", "", $str);
+        });
 
     }
 }
