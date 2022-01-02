@@ -43,8 +43,10 @@ class TaskController
 
         if(CDP::shouldQueue($task_name)){
             dispatch(function() use($action){
-                $this->data->execute();
-            }, $action);
+                echo "Started executing";
+                $action->execute();
+                echo "Finished executing";
+            });
 
         } else{
             $action->execute();
