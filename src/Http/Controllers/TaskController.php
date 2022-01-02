@@ -5,6 +5,7 @@ namespace Ghostscypher\CDP\Http\Controllers;
 use Ghostscypher\CDP\Jobs\UsesClosureJob;
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Ghostscypher\CDP\Facades\CDP;
+use Ghostscypher\CDP\Jobs\ExecuteActionJob;
 
 class TaskController
 {
@@ -42,12 +43,7 @@ class TaskController
         $action = CDP::action($task_name);
 
         if(CDP::shouldQueue($task_name)){
-            dispatch(function() use($action){
-                echo "Started executing";
-                $action->execute();
-                echo "Finished executing";
-            });
-
+            dispatch(new ExecuteActionJob($action));
         } else{
             $action->execute();
         }
