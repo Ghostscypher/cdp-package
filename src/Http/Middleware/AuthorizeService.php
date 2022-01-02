@@ -16,11 +16,11 @@ class AuthorizeService
      */
     public function handle($request, Closure $next)
     {
-        if(!$request->hasHeader('Authorization Bearer')){
+        if(!$request->hasHeader('Authorization')){
             abort(404);
         }
 
-        $authorization = base64_decode($request->headers->get('Authorization Bearer'));
+        $authorization = str_replace(["Bearer", " "], "", base64_decode($request->headers->get('Authorization')));
         $authorization = explode(':', $authorization);
         
         if(count($authorization) !== 2){
@@ -39,7 +39,7 @@ class AuthorizeService
         if(!app()->has('cdp_service')){
             app()->instance('cdp_service', $service);
         }
-        
+
         return $next($request);
     }
 }
