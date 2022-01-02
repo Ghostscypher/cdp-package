@@ -4,6 +4,7 @@ namespace Ghostscypher\CDP\Http\Controllers;
 
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Ghostscypher\CDP\Facades\CDP;
+use Illuminate\Http\Request;
 
 class TaskController
 {
@@ -36,12 +37,12 @@ class TaskController
         ]);
     }
 
-    public function executeTask($task_name)
+    public function executeTask(Request $request, $task_name)
     {
         $action = CDP::action($task_name);
 
         if(CDP::shouldQueue($task_name)){
-            dispatch(CDP::queueClass($action));
+            dispatch(CDP::queueClass($action, $request->all()));
         } else{
             $action->execute();
         }
