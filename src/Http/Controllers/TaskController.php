@@ -25,6 +25,14 @@ class TaskController
     
     public function getTask(string $task_name)
     {
+        $action = CDP::action($task_name);
 
+        return response()->json([
+            'data' => [
+                'command' => $action->commands(),
+                'authorize' => $action->authorize(),
+            ],
+            'success' => true,
+        ]);
     }
 }

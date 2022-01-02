@@ -47,6 +47,7 @@ class RouteRegistrar
         $this->router
             ->group(['middleware' => 'cdp_auth'], function($router){
                 $router->get('tasks', [TaskController::class, 'getTasks'])->name('cdp.tasks.index');
+                $router->get('tasks/{task_name}', [TaskController::class, 'getTask'])->name('cdp.tasks.index');
             });
     }
 
