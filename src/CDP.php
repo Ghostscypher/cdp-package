@@ -3,6 +3,7 @@
 namespace Ghostscypher\CDP;
 
 use Ghostscypher\CDP\Contracts\CDPActionContract;
+use Ghostscypher\CDP\Jobs\ExecuteActionJob;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Model;
 
@@ -75,6 +76,11 @@ class CDP
     public function shouldQueue($task_name): bool
     {
         return $this->getTasks()[$task_name]['shoul_dqueue'] ?? $this->service()['should_queue'];
+    }
+
+    public function queueClass(CDPActionContract $action): ExecuteActionJob
+    {
+        return app()->make($this->service()['action_queue_class'], ['action' => $action]);
     }
 
 }

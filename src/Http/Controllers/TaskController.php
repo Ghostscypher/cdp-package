@@ -43,7 +43,7 @@ class TaskController
         $action = CDP::action($task_name);
 
         if(CDP::shouldQueue($task_name)){
-            dispatch(new ExecuteActionJob($action));
+            dispatch(CDP::queueClass($action));
         } else{
             $action->execute();
         }

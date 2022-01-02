@@ -45,6 +45,7 @@ return [
             |
             */
             'should_queue' => true,
+            'action_queue_class' => \Ghostscypher\CDP\Jobs\ExecuteActionJob::class,
 
             /*
             |--------------------------------------------------------------------------
