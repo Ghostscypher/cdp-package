@@ -27,6 +27,7 @@ class CDP
 
         $defaultOptions = [
             'prefix' => 'cdp',
+            'middleware' => ['cdp_auth'],
         ];
 
         $options = array_merge($defaultOptions, $options);
