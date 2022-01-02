@@ -49,8 +49,11 @@ class TaskController
         $validator = Validator::make($request->all(), $action->rules());
 
         if($validator->fails()){
-            return (new ApiResource($validator->errors()))
-                ->response()
+            return response()
+                ->json([
+                    'data' => $validator->errors(),
+                    'success' => false,
+                ])
                 ->setStatusCode(422);
         }
 
