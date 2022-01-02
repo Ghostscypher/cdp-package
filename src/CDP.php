@@ -78,9 +78,12 @@ class CDP
         return $this->getTasks()[$task_name]['should_queue'] ?? $this->service()['should_queue'];
     }
 
-    public function queueClass(CDPActionContract $action): ExecuteActionJob
+    public function queueClass(CDPActionContract $action, array $data = []): ExecuteActionJob
     {
-        return (new ($this->service()['action_queue_class'])($action));
+        return app()->makeWith(
+            $this->service()['action_queue_class'], 
+            ['action' => $action, 'data' => $data]
+        );
     }
 
 }

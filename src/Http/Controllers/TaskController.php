@@ -2,10 +2,8 @@
 
 namespace Ghostscypher\CDP\Http\Controllers;
 
-use Ghostscypher\CDP\Jobs\UsesClosureJob;
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Ghostscypher\CDP\Facades\CDP;
-use Ghostscypher\CDP\Jobs\ExecuteActionJob;
 
 class TaskController
 {

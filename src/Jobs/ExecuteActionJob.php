@@ -15,8 +15,8 @@ class ExecuteActionJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $action;
-    private $data;
+    public $action;
+    public $data;
 
     /**
      * Create a new job instance.
