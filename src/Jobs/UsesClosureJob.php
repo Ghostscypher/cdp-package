@@ -8,12 +8,13 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Laravel\SerializableClosure\SerializableClosure;
 
 class UsesClosureJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private Closure $closure;
+    private $closure;
     private $data;
 
     /**
@@ -22,9 +23,9 @@ class UsesClosureJob implements ShouldQueue
      * @param Closure $closure
      * @param null $data
      */
-    public function __construct(Closure $closure, $data = null)
+    public function __construct(SerializableClosure $closure, $data = null)
     {
-        $this->callback['closure'] = $closure;
+        $this->closure = $closure;
         $this->data = $data ?? [];
     }
 
@@ -36,6 +37,6 @@ class UsesClosureJob implements ShouldQueue
     public function handle()
     {
         // Call the function passing the data to it
-        $this->callback['closure']->call($this);
+        $this->closure->call($this);
     }
 }
