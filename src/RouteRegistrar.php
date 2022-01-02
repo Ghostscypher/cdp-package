@@ -53,13 +53,10 @@ class RouteRegistrar
                 $router->post('tasks/{task_name}/execute', [TaskController::class, 'executeTask'])->name('cdp.task.exceute');
     
                 $router->get('logs/name/{name}/{type?}', [LogController::class, 'getLogsByName'])->name('cdp.logs.name.index');
-                $router->get('logs/service/name/{service_uuid}/{name}/{type?}', [LogController::class, 'getServiceLogsByName'])->name('cdp.log.name.index');
-
                 $router->get('logs/{type?}', [LogController::class, 'getLogs'])->name('cdp.logs.index');
-                $router->get('logs/service/{service_uuid}/{type?}', [LogController::class, 'getServiceLogs'])->name('cdp.log.type.index');
 
                 $router->get('service/{service_uuid}/credentials', [ServiceController::class, 'getCredentials'])->name('cdp.service.credential');
-
+                $router->get('service/{service_uuid}/logs/{type?}', [ServiceController::class, 'getLogs'])->name('cdp.service.credential');
             });
     }
 
