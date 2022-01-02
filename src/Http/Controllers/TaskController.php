@@ -5,7 +5,6 @@ namespace Ghostscypher\CDP\Http\Controllers;
 use Ghostscypher\CDP\Jobs\UsesClosureJob;
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Ghostscypher\CDP\Facades\CDP;
-use Laravel\SerializableClosure\SerializableClosure;
 
 class TaskController
 {
@@ -43,13 +42,9 @@ class TaskController
         $action = CDP::action($task_name);
 
         if(CDP::shouldQueue($task_name)){
-            $closure = new SerializableClosure(
-                function(){
-                    $this->data->execute();
-                }
-            );
-
-            dispatch(new UsesClosureJob($closure), $action);
+            dispatch(function() use($action){
+                $this->data->execute();
+            }, $action);
 
         } else{
             $action->execute();
