@@ -24,6 +24,7 @@ class LogController
         return new ApiResource(
                 CDP::serviceModel()
                 ->where('service_uuid', $service_uuid)
+                ->firstOrFail()
                 ->service->logs()
                 ->when($type !== '', function($query) use ($type) {
                     return $query->where('type', $type);
