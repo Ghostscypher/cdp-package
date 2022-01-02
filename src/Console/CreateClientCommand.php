@@ -60,6 +60,8 @@ class CreateClientCommand extends Command
                 'service_uuid' => Str::uuid(),
                 'product_name' => $this->option('product_name'),
                 'deployment_url' => $this->option('deployment_url'),
+                'type' => 'client',
+                'status' => 'active',
             ]);
 
             $service->credential()->create([
