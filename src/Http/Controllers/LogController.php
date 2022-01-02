@@ -11,8 +11,7 @@ class LogController
    public function getLogs($type = null)
    {
         return new ApiResource(
-            app('cdp_credentials')
-            ->service->logs()
+            CDP::logModel()
             ->when($type && $type !== '', function($query) use ($type) {
                 return $query->where('type', $type);
             })
@@ -35,13 +34,12 @@ class LogController
    public function getLogsByName($name, $type = null)
    {
         return new ApiResource(
-            app('cdp_credentials')
-            ->service->logs()
-            ->where('event_name', $name)
-            ->when($type && $type !== '', function($query) use ($type) {
-                return $query->where('type', $type);
-            })
-            ->paginate());
+            CDP::logModel()
+                ->where('event_name', $name)
+                ->when($type && $type !== '', function($query) use ($type) {
+                    return $query->where('type', $type);
+                })
+                ->paginate());
    }
 
    public function getServiceLogsByName($service_uuid, $name, $type = null)
