@@ -13,20 +13,20 @@ class LogController
         return new ApiResource(
             app('cdp_credentials')
             ->service->logs()
-            ->when($type !== '', function($query) use ($type) {
+            ->when($type && $type !== '', function($query) use ($type) {
                 return $query->where('type', $type);
             })
             ->paginate());
    }
 
-   public function getServiceLogs($service_uuid, $type)
+   public function getServiceLogs($service_uuid, $type = '')
    {
         return new ApiResource(
                 CDP::serviceModel()
                 ->where('service_uuid', $service_uuid)
                 ->firstOrFail()
                 ->logs()
-                ->when($type !== '', function($query) use ($type) {
+                ->when($type && $type !== '', function($query) use ($type) {
                     return $query->where('type', $type);
                 })
                 ->paginate());
@@ -38,13 +38,13 @@ class LogController
             app('cdp_credentials')
             ->service->logs()
             ->where('event_name', $name)
-            ->when($type !== '', function($query) use ($type) {
+            ->when($type && $type !== '', function($query) use ($type) {
                 return $query->where('type', $type);
             })
             ->paginate());
    }
 
-   public function getServiceLogsByName($service_uuid, $name, $type)
+   public function getServiceLogsByName($service_uuid, $name, $type = null)
    {
         return new ApiResource(
                 CDP::serviceModel()
@@ -52,7 +52,7 @@ class LogController
                 ->firstOrFail()
                 ->logs()
                 ->where('event_name', $name)
-                ->when($type !== '', function($query) use ($type) {
+                ->when($type && $type !== '', function($query) use ($type) {
                     return $query->where('type', $type);
                 })
                 ->paginate());
