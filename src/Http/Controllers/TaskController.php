@@ -21,5 +21,10 @@ class TaskController
             'data' => array_keys(CDP::getTasks()),
             'success' => true,
         ]);
-    }   
+    }
+    
+    public function getTask(string $task_name)
+    {
+
+    }
 }

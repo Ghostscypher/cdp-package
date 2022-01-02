@@ -2,6 +2,7 @@
 
 namespace Ghostscypher\CDP;
 
+use Ghostscypher\CDP\Contracts\CDPActionContract;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Database\Eloquent\Model;
 
@@ -65,4 +66,8 @@ class CDP
         return $this->service()['type'];
     }
 
+    public function action($task_name): CDPActionContract
+    {
+        return app()->make($this->getTasks()[$task_name]['action_class']);
+    }
 }
