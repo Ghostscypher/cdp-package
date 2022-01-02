@@ -24,7 +24,7 @@ class UsesClosureJob implements ShouldQueue
      */
     public function __construct(Closure $closure, $data = null)
     {
-        $this->closure = $closure;
+        $this->callback['closure'] = $closure;
         $this->data = $data ?? [];
     }
 
@@ -36,6 +36,6 @@ class UsesClosureJob implements ShouldQueue
     public function handle()
     {
         // Call the function passing the data to it
-        $this->closure->call($this);
+        $this->callback['closure']->call($this);
     }
 }
