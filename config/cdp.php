@@ -1,6 +1,17 @@
 <?php
 
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | A list of services offered by the website at this URL
+    |--------------------------------------------------------------------------
+    |
+    | Default service to be used
+    |
+    */
+    'default' => 'service_1',
+
     /*
     |--------------------------------------------------------------------------
     | A list of services offered by the website at this URL
@@ -72,7 +83,7 @@ return [
             |
             | This defines the models used by the system enabling the package
             | to be extended
-            |
+            | TODO: Add support for this
             */
             'models' => [
                 'deployment' => \Ghostscypher\CDP\Models\Deployment::class,

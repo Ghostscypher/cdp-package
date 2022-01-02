@@ -1,6 +1,6 @@
 <?php
 
-namespace JohnDoe\BlogPackage\Facades;
+namespace Ghostscypher\CDP\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

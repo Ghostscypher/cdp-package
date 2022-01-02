@@ -2,6 +2,7 @@
 
 namespace Ghostscypher\CDP;
 
+use Ghostscypher\CDP\Http\Controllers\TaskController;
 use Illuminate\Contracts\Routing\Registrar as Router;
 
 class RouteRegistrar
@@ -31,7 +32,7 @@ class RouteRegistrar
      */
     public function all()
     {
-        $this->forAuthorization();
+        $this->forDeployment();
         $this->forClientToMain();
         $this->forMainToClient();
     }
@@ -41,9 +42,15 @@ class RouteRegistrar
      *
      * @return void
      */
-    public function forAuthorization()
+    public function forDeployment()
     {
-
+        $this->router
+            ->group(['middleware' => 'cdp_auth'], function($router){
+                $router->get('tasks', [
+                    'uses' => [TaskController::class, 'getTasks'],
+                    'as' => 'cdp.tasks.index'
+                ]);
+            });
     }
 
     /**

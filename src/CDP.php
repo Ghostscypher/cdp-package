@@ -3,9 +3,16 @@
 namespace Ghostscypher\CDP;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Model;
 
 class CDP
 {
+    public function service(): array
+    {
+        $default_service = config('cdp.default');
+        return config("cdp.service.{$default_service}");
+    }
+
     public function routes($callback = null, array $options = [])
     {
         $callback = $callback ?: function ($router) {
@@ -14,7 +21,6 @@ class CDP
 
         $defaultOptions = [
             'prefix' => 'cdp',
-            'namespace' => '\Ghostscypher\CDP\Http\Controllers',
         ];
 
         $options = array_merge($defaultOptions, $options);
@@ -24,4 +30,23 @@ class CDP
         });
     }
 
+    public function getCredentialModel(): Model
+    {
+        return $this->service()['models']['credential']::new();
+    }
+
+    public function getDeploymentModel(): Model
+    {
+        return $this->service()['models']['deployment']::new();
+    }
+
+    public function getLogModel(): Model
+    {
+        return $this->service()['models']['log']::new();
+    }
+
+    public function getServiceModel(): Model
+    {
+        return $this->service()['models']['service']::new();
+    }
 }

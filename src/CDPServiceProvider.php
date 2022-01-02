@@ -2,6 +2,7 @@
 
 namespace Ghostscypher\CDP;
 
+use Ghostscypher\CDP\Http\Middleware\AuthorizeService;
 use Illuminate\Support\ServiceProvider;
 
 class CDPServiceProvider extends ServiceProvider
@@ -33,5 +34,10 @@ class CDPServiceProvider extends ServiceProvider
                 \Ghostscypher\CDP\Console\CreateClientCommand::class,
             ]);
         }
+
+        // Register middleware
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('cdp_auth', AuthorizeService::class);
+
     }
 }

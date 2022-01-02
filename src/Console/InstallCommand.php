@@ -38,40 +38,30 @@ class InstallCommand extends Command
      */
     public function handle()
     {
-        $this->info('Publishing migrations...');
-
+        $this->line('Publishing migrations...');
         $params = [
             '--provider' => "Ghostscypher\CDP\CDPServiceProvider",
             '--tag' => "cdp-migrations"
         ];
-
-        Artisan::call('vendor:publish', $params);
-
+        $this->publish($params);
         $this->info('Published migrations');
 
-        // Config
-        $this->info('Publishing config...');
+        // -------------------------------- //
 
+        // Config
+        $this->line('Publishing config...');
         $params = [
-            '--provider' => "Ghostscypher\CDP\CDPServiceProvider",
             '--tag' => "cdp-config"
         ];
-
-        Artisan::call('vendor:publish', $params);
-
+        $this->publish($params);
         $this->info('Published config');
-
-        if($this->wantToMigrate()){
-            Artisan::call("migrate --path=" . database_path('migrations/cdp'));
-
-            echo Artisan::output();
-        }
 
         return 0;
     }
 
-    protected function wantToMigrate()
+    protected function publish($params)
     {
-        return $this->confirm("Do you want to run the migrations?", true);
+        Artisan::call('vendor:publish', $params);
     }
+
 }

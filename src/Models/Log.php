@@ -11,6 +11,11 @@ class Log extends Model
 
     protected $table = 'cdp_logs';
 
+    protected $fillable = [
+        'event_name', 'message', 
+        'type', 'level',
+    ];
+
     // Disable Laravel's mass assignment protection
     protected $guarded = [];
 }
