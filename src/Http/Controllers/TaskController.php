@@ -35,4 +35,13 @@ class TaskController
             'success' => true,
         ]);
     }
+
+    public function executeTask($task_name)
+    {
+        $action = CDP::action($task_name);
+        $action->execute();
+
+        return response('', 201);
+    }
+
 }

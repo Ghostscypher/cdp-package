@@ -12,10 +12,16 @@ class Log extends Model
     protected $table = 'cdp_logs';
 
     protected $fillable = [
-        'event_name', 'message', 
+        'service_uuid', 'event_name', 'message', 
         'type', 'level',
     ];
 
     // Disable Laravel's mass assignment protection
     protected $guarded = [];
+
+    public function log()
+    {
+        return $this->belongsTo(Service::class, 'service_uuid', 'service_uuid');
+    }
+
 }

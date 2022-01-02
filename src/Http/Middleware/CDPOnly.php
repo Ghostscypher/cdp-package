@@ -4,7 +4,6 @@ namespace Ghostscypher\CDP\Http\Middleware;
 
 use Closure;
 use Ghostscypher\CDP\Facades\CDP;
-use Ghostscypher\CDP\Models\Credential;
 
 class CDPOnly
 {

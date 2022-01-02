@@ -71,4 +71,10 @@ class CDP
     {
         return app()->make($this->getTasks()[$task_name]['action_class']);
     }
+
+    public function shouldQueue($task_name): bool
+    {
+        return $this->getTasks()[$task_name]['shoul_dqueue'] ?? config('cdp.should_queue');
+    }
+
 }

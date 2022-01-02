@@ -48,6 +48,7 @@ class RouteRegistrar
             ->group(['middleware' => 'cdp_only:client'], function($router){
                 $router->get('tasks', [TaskController::class, 'getTasks'])->name('cdp.tasks.index');
                 $router->get('tasks/{task_name}', [TaskController::class, 'getTask'])->name('cdp.task.index');
+                $router->get('tasks/{task_name}/execute', [TaskController::class, 'executeTask'])->name('cdp.task.exceute');
             });
     }
 

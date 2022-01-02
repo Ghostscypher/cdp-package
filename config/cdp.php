@@ -29,9 +29,10 @@ return [
             | Indicated the type of tenant this is
             |--------------------------------------------------------------------------
             |
-            | supported: "main", "client"
+            | supported: "main", "client", "service"
             |   main: the tenant controlling service(s)
             |   client: the tenant being controlled by main 
+            |   service: the services created by the client
             */
             'type' => 'main',
 

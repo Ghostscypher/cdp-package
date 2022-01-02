@@ -15,6 +15,7 @@ class CreateCdpLogsTable extends Migration
     {
         Schema::create('cdp_logs', function (Blueprint $table) {
             $table->id();
+            $table->uuid('service_uuid');
             $table->string('event_name');
             $table->longText('message')->nullable();
             $table->string('type')->nullable();
