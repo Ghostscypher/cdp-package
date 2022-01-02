@@ -58,9 +58,9 @@ class TaskController
         }
 
         if(CDP::shouldQueue($task_name)){
-            dispatch(CDP::queueClass($action, $request->all()));
+            dispatch(CDP::queueClass($action, $validator->validated()));
         } else{
-            $action->execute($request->all());
+            $action->execute($validator->validated());
         }
 
         return response('', 201);
