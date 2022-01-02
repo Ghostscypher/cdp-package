@@ -37,24 +37,24 @@ class CDP
         });
     }
 
-    public function getCredentialModel(): Model
+    public function credentialModel(): Model
     {
-        return $this->service()['models']['credential']::new();
+        return app()->make($this->service()['models']['credential']);
     }
 
-    public function getDeploymentModel(): Model
+    public function deploymentModel(): Model
     {
-        return $this->service()['models']['deployment']::new();
+        return app()->make($this->service()['models']['deployment']);
     }
 
-    public function getLogModel(): Model
+    public function logModel(): Model
     {
-        return $this->service()['models']['log']::new();
+        return app()->make($this->service()['models']['log']);
     }
 
-    public function getServiceModel(): Model
+    public function serviceModel(): Model
     {
-        return $this->service()['models']['service']::new();
+        return app()->make($this->service()['models']['service']);
     }
 
     public function getTasks(): array

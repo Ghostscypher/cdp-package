@@ -3,7 +3,7 @@
 namespace Ghostscypher\CDP\Http\Middleware;
 
 use Closure;
-use Ghostscypher\CDP\Models\Credential;
+use Ghostscypher\CDP\Facades\CDP;
 
 class AuthorizeService
 {
@@ -27,7 +27,7 @@ class AuthorizeService
             abort(404);
         }
 
-        $credentials = Credential::where([
+        $credentials = CDP::credentialModel()->where([
             'key' => $authorization[0],
             'secret' => $authorization[1],
         ])->with('service')->first();

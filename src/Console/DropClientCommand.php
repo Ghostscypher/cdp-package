@@ -2,11 +2,9 @@
 
 namespace Ghostscypher\CDP\Console;
 
-use Ghostscypher\CDP\Models\Service;
+use Ghostscypher\CDP\Facades\CDP;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use stdClass;
-use Symfony\Component\Console\Input\InputOption;
 
 class DropClientCommand extends Command
 {
@@ -56,7 +54,7 @@ class DropClientCommand extends Command
 
         try{
             
-            $service = Service::where([
+            $service = CDP::serviceModel()->where([
                 'service_uuid' => $this->option('client_uuid'),
             ])->firstOrFail();
 

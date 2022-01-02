@@ -4,7 +4,6 @@ namespace Ghostscypher\CDP\Http\Middleware;
 
 use Closure;
 use Ghostscypher\CDP\Facades\CDP;
-use Ghostscypher\CDP\Models\Service;
 
 class CheckServiceStatus extends AbstractExceptMiddleware
 {
@@ -16,7 +15,7 @@ class CheckServiceStatus extends AbstractExceptMiddleware
     {
         $host = $request->getHost();
 
-        $service = Service::where('deployment_url', $host)->with('credential')->first();
+        $service = CDP::serviceModel()->where('deployment_url', $host)->with('credential')->first();
 
         if($service && $service->type === 'client'){
             $action = CDP::action($service->status);

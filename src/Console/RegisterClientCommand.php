@@ -2,11 +2,9 @@
 
 namespace Ghostscypher\CDP\Console;
 
-use Ghostscypher\CDP\Models\Service;
+use Ghostscypher\CDP\Facades\CDP;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use stdClass;
-use Symfony\Component\Console\Input\InputOption;
 
 class RegisterClientCommand extends Command
 {
@@ -82,7 +80,7 @@ class RegisterClientCommand extends Command
 
         try{
             
-            $service = Service::create([
+            $service = CDP::serviceModel()->create([
                 'service_uuid' => $this->option('client_uuid'),
                 'product_name' => $this->option('product_name'),
                 'deployment_url' => $this->option('deployment_url'),
