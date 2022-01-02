@@ -14,13 +14,13 @@ class UsesClosureJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $closure;
+    private SerializableClosure $closure;
     private $data;
 
     /**
      * Create a new job instance.
      *
-     * @param Closure $closure
+     * @param SerializableClosure $closure
      * @param null $data
      */
     public function __construct(SerializableClosure $closure, $data = null)
@@ -37,6 +37,6 @@ class UsesClosureJob implements ShouldQueue
     public function handle()
     {
         // Call the function passing the data to it
-        $this->closure->call($this);
+        $this->closure->getClosure()->call($this);
     }
 }
