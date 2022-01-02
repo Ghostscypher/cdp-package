@@ -3,6 +3,7 @@
 namespace Ghostscypher\CDP;
 
 use Ghostscypher\CDP\Http\Middleware\AuthorizeService;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
 class CDPServiceProvider extends ServiceProvider
