@@ -5,6 +5,7 @@ namespace Ghostscypher\CDP\Http\Controllers;
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Ghostscypher\CDP\Facades\CDP;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController
 {
@@ -45,7 +46,13 @@ class TaskController
             abort(404);
         }
 
-        $request->validate($action->rules());
+        $validator = Validator::make($request->all(), $action->rules());
+
+        if($validator->fails()){
+            return (new ApiResource($validator->errors()))
+                ->response()
+                ->setStatusCode(422);
+        }
 
         if(CDP::shouldQueue($task_name)){
             dispatch(CDP::queueClass($action, $request->all()));
