@@ -33,6 +33,7 @@ class CDPServiceProvider extends ServiceProvider
                 \Ghostscypher\CDP\Console\InstallCommand::class,
                 \Ghostscypher\CDP\Console\RegisterClientCommand::class,
                 \Ghostscypher\CDP\Console\CreateClientCommand::class,
+                \Ghostscypher\CDP\Console\DropClientCommand::class,
             ]);
         }
 

@@ -75,16 +75,16 @@ class CreateClientCommand extends Command
             $this->line(sprintf("Service UUID: %s", $service->service_uuid));
             $this->line('');
 
-            $this->info(sprintf("Product Name: %s", $service->product_name));
+            $this->line(sprintf("Product Name: %s", $service->product_name));
             $this->line('');
 
-            $this->info(sprintf("Deployment Url: %s", $service->deployment_url));
+            $this->line(sprintf("Deployment Url: %s", $service->deployment_url));
             $this->line('');
 
-            $this->info(sprintf("Client Key: %s", $service->credential->key));
+            $this->line(sprintf("Client Key: %s", $service->credential->key));
             $this->line('');
 
-            $this->info(sprintf("Client Secret: %s", $service->credential->secret));
+            $this->line(sprintf("Client Secret: %s", $service->credential->secret));
             $this->line('');
 
             // JSON array

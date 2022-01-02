@@ -10,7 +10,12 @@ class CDP
     public function service(): array
     {
         $default_service = config('cdp.default');
-        return config("cdp.services.{$default_service}");
+        return $this->getService($default_service);
+    }
+
+    public function getService(string $service_name): array
+    {
+        return config("cdp.services.{$service_name}");
     }
 
     public function routes($callback = null, array $options = [])
@@ -49,4 +54,15 @@ class CDP
     {
         return $this->service()['models']['service']::new();
     }
+
+    public function getTasks(): array
+    {
+        return $this->service()['tasks'];
+    }
+
+    public function type(): string
+    {
+        return $this->service()['type'];
+    }
+
 }

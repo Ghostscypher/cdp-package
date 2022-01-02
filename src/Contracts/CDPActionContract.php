@@ -14,4 +14,9 @@ interface CDPActionContract
      */
     public function execute(): void;
 
+    /**
+     * Indicates if at this action the app is authorized to continue
+     */
+    public function authorize(): bool;
+
 }

@@ -12,11 +12,13 @@ class TaskController
      */
     public function getTasks()
     {
-        
-        $service = CDP::service();
+        if(CDP::type() !== 'client')
+        {
+            abort(404);
+        }
 
         return response()->json([
-            'data' => array_keys($service['tasks']),
+            'data' => array_keys(CDP::getTasks()),
             'success' => true,
         ]);
     }   
