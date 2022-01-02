@@ -44,7 +44,7 @@ class TaskController
         if(CDP::shouldQueue($task_name)){
             dispatch(CDP::queueClass($action, $request->all()));
         } else{
-            $action->execute();
+            $action->execute($request->all());
         }
 
         return response('', 201);

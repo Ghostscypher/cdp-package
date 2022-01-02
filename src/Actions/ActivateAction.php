@@ -27,4 +27,12 @@ class ActivateAction implements CDPActionContract
     {
         return true;
     }
+
+    /**
+     * Array of rules to be used for validation
+     */
+    public function rules(): array
+    {
+        return [];
+    }
 }

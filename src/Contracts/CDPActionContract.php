@@ -19,4 +19,9 @@ interface CDPActionContract
      */
     public function authorize(): bool;
 
+    /**
+     * Array of rules to be used for validation
+     */
+    public function rules(): array;
+
 }

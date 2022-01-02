@@ -27,4 +27,12 @@ class DestroyAction implements CDPActionContract
     {
         return false;
     }
+
+    /**
+     * Array of rules to be used for validation
+     */
+    public function rules(): array
+    {
+        return [];
+    }
 }
