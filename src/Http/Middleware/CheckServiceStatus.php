@@ -12,13 +12,12 @@ class CheckServiceStatus extends AbstractExceptMiddleware
         $host = $request->getHost();
 
         $service = Service::where('deployment_url', $host)->with('credential')->first();
-        dd($host, $service);
 
-        if(!$service){
-            return $next($request);
+        if($service){
+            app()->instance('cdp_service', $service);
         }
 
         // Perform action
-        // return $next($request);
+        return $next($request);
     }
 }

@@ -10,7 +10,7 @@ class CDP
     public function service(): array
     {
         $default_service = config('cdp.default');
-        return config("cdp.service.{$default_service}");
+        return config("cdp.services.{$default_service}");
     }
 
     public function routes($callback = null, array $options = [])

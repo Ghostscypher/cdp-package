@@ -13,7 +13,7 @@ class Deployment extends Model
     protected $table = 'cdp_deployments';
 
     protected $fillable = [
-        'service_uuid', 'key', 'secret',
+        'service_uuid', 'url',
     ];
 
     // Disable Laravel's mass assignment protection

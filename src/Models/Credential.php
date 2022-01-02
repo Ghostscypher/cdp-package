@@ -15,7 +15,15 @@ class Credential extends Model
         'service_uuid', 'key', 'secret'
     ];
 
+    protected $hidden = [
+        'key', 'secret'
+    ];
+
     // Disable Laravel's mass assignment protection
     protected $guarded = [];
+
+    public function service(){
+        return $this->morphTo('service');
+    }
     
 }

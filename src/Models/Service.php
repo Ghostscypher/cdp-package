@@ -15,6 +15,7 @@ class Service extends Model
     protected $fillable = [
         'service_uuid', 'product_name',
         'deployment_url', 'description',
+        'type', 'status',
     ];
 
     // Disable Laravel's mass assignment protection

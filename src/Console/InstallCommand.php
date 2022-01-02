@@ -41,7 +41,8 @@ class InstallCommand extends Command
         $this->line('Publishing migrations...');
         $params = [
             '--provider' => "Ghostscypher\CDP\CDPServiceProvider",
-            '--tag' => "cdp-migrations"
+            '--tag' => "cdp-migrations",
+            '--force' => true,
         ];
         $this->publish($params);
         $this->info('Published migrations');
@@ -51,7 +52,8 @@ class InstallCommand extends Command
         // Config
         $this->line('Publishing config...');
         $params = [
-            '--tag' => "cdp-config"
+            '--tag' => "cdp-config",
+            '--force' => false,
         ];
         $this->publish($params);
         $this->info('Published config');

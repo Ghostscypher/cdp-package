@@ -18,7 +18,9 @@ class CreateCdpServicesTable extends Migration
             $table->uuid('service_uuid')->unique()->index();
             $table->string('product_name');
             $table->string('deployment_url');
+            $table->string('type');
             $table->longText('description')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

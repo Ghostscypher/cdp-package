@@ -20,24 +20,24 @@ class AuthorizeService
             abort(404);
         }
 
-        $authorization = str_replace(["Bearer", " "], "", base64_decode($request->headers->get('Authorization')));
+        $authorization =  base64_decode(str_replace(["Bearer", " "], "", $request->headers->get('Authorization')));
         $authorization = explode(':', $authorization);
         
         if(count($authorization) !== 2){
             abort(404);
         }
 
-        $service = Credential::where([
+        $credentials = Credential::where([
             'key' => $authorization[0],
             'secret' => $authorization[1],
         ])->with('service')->first();
 
-        if($service === null){
+        if($credentials === null){
             abort(404);
         }
 
-        if(!app()->has('cdp_service')){
-            app()->instance('cdp_service', $service);
+        if(!app()->has('cdp_credentials')){
+            app()->instance('cdp_credentials', $credentials);
         }
 
         return $next($request);

@@ -10,17 +10,14 @@ class TaskController
     /**
      * @return ApiResource list of API tasks
      */
-    public function getTasks(): ApiResource
+    public function getTasks()
     {
         
         $service = CDP::service();
 
-        dd($service);
-
-        if($service['type'] === 'main'){
-            return new ApiResource([]);
-        }
-
-        return new ApiResource(array_keys($service['tasks']));
+        return response()->json([
+            'data' => array_keys($service['tasks']),
+            'success' => true,
+        ]);
     }   
 }
