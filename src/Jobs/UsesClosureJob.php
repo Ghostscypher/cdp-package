@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace Ghostscypher\CDP\Jobs;
 
 use Closure;
 use Illuminate\Bus\Queueable;

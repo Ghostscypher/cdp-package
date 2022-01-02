@@ -2,7 +2,7 @@
 
 namespace Ghostscypher\CDP\Http\Controllers;
 
-use App\Jobs\UsesClosureJob;
+use Ghostscypher\CDP\Jobs\UsesClosureJob;
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Ghostscypher\CDP\Facades\CDP;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -49,7 +49,7 @@ class TaskController
         } else{
             $action->execute();
         }
-        
+
         return response('', 201);
     }
 
