@@ -19,7 +19,7 @@ class Log extends Model
     // Disable Laravel's mass assignment protection
     protected $guarded = [];
 
-    public function log()
+    public function service()
     {
         return $this->belongsTo(Service::class, 'service_uuid', 'service_uuid');
     }
