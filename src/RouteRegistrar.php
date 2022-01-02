@@ -58,7 +58,7 @@ class RouteRegistrar
                 $router->get('logs/{type?}', [LogController::class, 'getLogs'])->name('cdp.logs.index');
                 $router->get('logs/service/{service_uuid}/{type?}', [LogController::class, 'getServiceLogs'])->name('cdp.log.type.index');
 
-                $router->get('service/{service_uuid}/credential', [ServiceController::class, 'getCredentials'])->name('cdp.service.credential');
+                $router->get('service/{service_uuid}/credentials', [ServiceController::class, 'getCredentials'])->name('cdp.service.credential');
 
             });
     }
