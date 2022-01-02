@@ -74,7 +74,7 @@ class CDP
 
     public function shouldQueue($task_name): bool
     {
-        return $this->getTasks()[$task_name]['shoul_dqueue'] ?? config('cdp.should_queue');
+        return $this->getTasks()[$task_name]['shoul_dqueue'] ?? $this->service()['should_queue'];
     }
 
 }
