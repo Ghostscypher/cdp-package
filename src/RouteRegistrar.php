@@ -54,8 +54,8 @@ class RouteRegistrar
                 $router->get('logs/{type?}', [LogController::class, 'getLogs'])->name('cdp.logs.index');
                 $router->get('logs/{service_uuid}/{type?}', [LogController::class, 'getServiceLogs'])->name('cdp.log.type.index');
 
-                $router->get('logs/{name}/{type?}', [LogController::class, 'getLogsByName'])->name('cdp.logs.name.index');
-                $router->get('logs/{service_uuid}/{name}/{type?}', [LogController::class, 'getServiceLogsByName'])->name('cdp.log.name.index');
+                $router->get('logs/name/{name}/{type?}', [LogController::class, 'getLogsByName'])->name('cdp.logs.name.index');
+                $router->get('logs/name/{service_uuid}/{name}/{type?}', [LogController::class, 'getServiceLogsByName'])->name('cdp.log.name.index');
             });
     }
 
