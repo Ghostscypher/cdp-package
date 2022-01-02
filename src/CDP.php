@@ -80,7 +80,7 @@ class CDP
 
     public function queueClass(CDPActionContract $action): ExecuteActionJob
     {
-        return $this->service()['action_queue_class']::new($action);
+        return (new ($this->service()['action_queue_class'])($action));
     }
 
 }
