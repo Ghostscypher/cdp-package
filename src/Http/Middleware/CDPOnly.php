@@ -6,7 +6,7 @@ use Closure;
 use Ghostscypher\CDP\Facades\CDP;
 use Ghostscypher\CDP\Models\Credential;
 
-class AuthorizeService
+class CDPOnly
 {
     /**
      * Handle an incoming request.

@@ -40,7 +40,7 @@ class CDPServiceProvider extends ServiceProvider
         // Register middleware
         $router = $this->app->make(Router::class);
         $router->aliasMiddleware('cdp_auth', AuthorizeService::class);
-        $router->aliasMiddleware('cdp_only', AuthorizeService::class);
+        $router->aliasMiddleware('cdp_only', CDPOnly::class);
 
     }
 }
