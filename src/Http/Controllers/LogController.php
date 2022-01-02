@@ -25,7 +25,7 @@ class LogController
                 CDP::serviceModel()
                 ->where('service_uuid', $service_uuid)
                 ->firstOrFail()
-                ->service->logs()
+                ->logs()
                 ->when($type !== '', function($query) use ($type) {
                     return $query->where('type', $type);
                 })
