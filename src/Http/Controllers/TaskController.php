@@ -41,6 +41,12 @@ class TaskController
     {
         $action = CDP::action($task_name);
 
+        if(!$action){
+            abort(404);
+        }
+
+        $request->validate($action->rules());
+
         if(CDP::shouldQueue($task_name)){
             dispatch(CDP::queueClass($action, $request->all()));
         } else{
