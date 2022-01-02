@@ -14,7 +14,7 @@ class ServiceController
         $credential = CDP::serviceModel()
             ->where('service_uuid', $service_uuid)
             ->firstOrFail()
-            ->credentials()
+            ->credential()
             ->firstOrFail();
 
         return response()->json([
