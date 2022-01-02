@@ -46,7 +46,7 @@ class TaskController
             abort(404);
         }
 
-        $validator = Validator::make($request->all(), $action->rules());
+        $validator = Validator::make(array_merge(['task_name' => $task_name], $request->all()), $action->rules());
 
         if($validator->fails()){
             return response()
