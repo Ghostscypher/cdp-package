@@ -17,10 +17,10 @@ class CheckServiceStatus extends AbstractExceptMiddleware
 
         $service = CDP::serviceModel()->where('deployment_url', $host)->with('credential')->first();
 
-        if($service && $service->type === 'client'){
+        if($service && $service->type === 'service'){
             $action = CDP::action($service->status);
 
-            if($action->authorize()){
+            if(!$action->authorize()){
                 abort(503, 'Service unavailabe');
             }
 

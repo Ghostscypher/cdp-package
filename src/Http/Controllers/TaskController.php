@@ -31,7 +31,7 @@ class TaskController
 
         return response()->json([
             'data' => [
-                'command' => $action->commands(),
+                'commands' => $action->commands(),
                 'authorize' => $action->authorize(),
             ],
             'success' => true,
