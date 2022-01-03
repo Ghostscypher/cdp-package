@@ -47,7 +47,7 @@ class TaskController
         }
 
         $validator = Validator::make(
-            array_merge(['task_name' => $task_name], $request->all()), 
+            array_merge($request->all(), ['task_name' => $task_name]), 
             array_merge($action->rules(), ['task_name' => ['bail', 'required']])
         );
 
