@@ -31,7 +31,7 @@ class Credential extends Model
     }
 
     public function getEncodedBearerCredentialAttribute(){
-        return base64_encode("bearer " . $this->getEncodedCredentialAttribute());
+        return base64_encode("Bearer " . $this->getEncodedCredentialAttribute());
     }
 
 }
