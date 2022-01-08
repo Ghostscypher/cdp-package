@@ -25,7 +25,7 @@ class Deployment extends Model
     }
 
     public function parentService(){
-        return $this->belongsTo(Service::class);
+        return $this->belongsTo(Service::class, 'service_id');
     }
 
 }
