@@ -26,4 +26,12 @@ class Credential extends Model
         return $this->morphTo('service');
     }
     
+    public function getEncodedCredentialAttribute(){
+        return base64_encode("{$this->key}:{$this->secret}");
+    }
+
+    public function getEncodedBearerCredentialAttribute(){
+        return base64_encode("bearer " . $this->getEncodedCredentialAttribute());
+    }
+
 }
