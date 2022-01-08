@@ -110,4 +110,18 @@ class ServiceController
 
    }
 
+   public function deleteService($service_uuid){
+       $service = CDP::serviceModel()->where([
+                    'type' => 'client',
+                    'service_uuid' => $service_uuid,
+                ])->firstOrFail();
+
+        $service->delete();
+
+        return response()->json([
+            'data' => null,
+            'success' => true,
+        ]);
+   }
+
 }
