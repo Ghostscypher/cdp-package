@@ -26,6 +26,20 @@ class ServiceController
         ]);
    }
 
+   public function getStatus($service_uuid)
+   {
+        $service = CDP::serviceModel()
+            ->where('service_uuid', $service_uuid)
+            ->firstOrFail();
+
+        return response()->json([
+            'data' => [
+                'status' => $service->status,
+            ],
+            'success' => true,
+        ]);
+   }
+
    public function getLogs($service_uuid, $event_name = null, $type = null)
    {
         $logs = CDP::serviceModel()

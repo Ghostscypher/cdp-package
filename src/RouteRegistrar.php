@@ -50,12 +50,13 @@ class RouteRegistrar
             ->group(['middleware' => 'cdp_only:client'], function($router){
                 $router->get('tasks', [TaskController::class, 'getTasks'])->name('cdp.tasks.index');
                 $router->get('tasks/{task_name}', [TaskController::class, 'getTask'])->name('cdp.task.index');
-                $router->post('tasks/{task_name}/execute', [TaskController::class, 'executeTask'])->name('cdp.task.exceute');
+                $router->post('tasks/{task_name}/execute', [TaskController::class, 'executeTask'])->name('cdp.task.execute');
     
                 $router->get('logs/name/{name}/{type?}', [LogController::class, 'getLogsByName'])->name('cdp.logs.name.index');
                 $router->get('logs/{type?}', [LogController::class, 'getLogs'])->name('cdp.logs.index');
 
                 $router->get('service/{service_uuid}/credentials', [ServiceController::class, 'getCredentials'])->name('cdp.service.credential');
+                $router->get('service/{service_uuid}/status', [ServiceController::class, 'getStatus'])->name('cdp.service.status');
                 $router->get('service/{service_uuid}/logs/{type?}', [ServiceController::class, 'getLogs'])->name('cdp.service.credential');
             });
     }
