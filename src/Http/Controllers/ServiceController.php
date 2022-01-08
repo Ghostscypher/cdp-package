@@ -79,6 +79,20 @@ class ServiceController
         $url = parse_url($validator->deployment_url);
         $url = sprintf("%s://%s", $url['scheme'], $url['host']);
         
+        $service = CDP::serviceModel()
+            ->with(['credentials'])
+            ->where([
+                'product_name' => $request->product_name,
+                'deployment_url' => $url,
+            ])->first();
+
+        if($service){
+            return response()->json([
+                'data' => $service,
+                'success' => true,
+            ]);
+        }
+
         DB::beginTransaction();
 
         try{
