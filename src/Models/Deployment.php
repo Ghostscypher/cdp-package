@@ -23,4 +23,9 @@ class Deployment extends Model
     {
         return $this->morphTo();
     }
+
+    public function parentService(){
+        return $this->belongsTo(Service::class);
+    }
+
 }

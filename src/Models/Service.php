@@ -26,6 +26,10 @@ class Service extends Model
         return $this->morphTo();
     }
 
+    public function deployments(){
+        return $this->belongsTo(Deployment::class);
+    }
+
     public function logs()
     {
         return $this->hasMany(Log::class, 'service_uuid', 'service_uuid');
