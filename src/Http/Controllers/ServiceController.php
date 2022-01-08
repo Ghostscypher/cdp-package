@@ -5,6 +5,9 @@ namespace Ghostscypher\CDP\Http\Controllers;
 use Ghostscypher\CDP\Facades\CDP;
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class ServiceController
 {
@@ -56,6 +59,55 @@ class ServiceController
             'data' => $logs,
             'success' => true,
         ]);
+   }
+
+   public function createService(Request $request){
+        $validator = Validator::make($request->all(), [
+            'product_name' => ['bail', 'required', 'string'],
+            'deployment_url' => ['bail', 'required', 'url'],    
+        ]);
+
+        if($validator->fails()){
+            return response()
+                ->json([
+                    'data' => $validator->errors(),
+                    'success' => false,
+                ])
+                ->setStatusCode(422);
+        }
+
+        $url = parse_url($validator->deployment_url);
+        $url = sprintf("%s://%s", $url['scheme'], $url['host']);
+        
+        DB::beginTransaction();
+
+        try{
+            $service = CDP::serviceModel()->create([
+                'service_uuid' => Str::uuid(),
+                'product_name' => $request->product_name,
+                'deployment_url' => $url,
+                'type' => 'client',
+                'status' => 'active',
+            ]);
+
+            $service->credential()->create([
+                'key' => Str::random(32), 
+                'secret' => Str::random(16),
+            ]);
+
+            DB::commit();
+            
+        } catch(\Throwable $th){
+            DB::rollBack();
+
+            throw $th;
+        }
+
+        return response()->json([
+            'data' => $service,
+            'success' => true,
+        ]);
+
    }
 
 }
