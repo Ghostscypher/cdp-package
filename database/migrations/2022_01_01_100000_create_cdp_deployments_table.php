@@ -18,6 +18,7 @@ class CreateCdpDeploymentsTable extends Migration
             $table->bigInteger('service_id')->references('id')->on('cdp_service');
             $table->uuid('service_uuid')->nullable();
             $table->string('url');
+            $table->string('product_name');
             $table->timestamps();
         });
     }
