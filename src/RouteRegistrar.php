@@ -56,6 +56,7 @@ class RouteRegistrar
                 $router->get('logs/{type?}', [LogController::class, 'getLogs'])->name('cdp.logs.index');
 
                 $router->post('service/new', [ServiceController::class, 'createService'])->name('cdp.service.new');
+                $router->post('service/test', [ServiceController::class, 'testService'])->name('cdp.service.test');
                 $router->post('service/{service_uuid}/activate', [ServiceController::class, 'activateService'])->name('cdp.service.activate');
                 $router->post('service/{service_uuid}/deactivate', [ServiceController::class, 'deActivateService'])->name('cdp.service.deactivate');
                 $router->post('service/{service_uuid}/delete', [ServiceController::class, 'deleteService'])->name('cdp.service.delete');

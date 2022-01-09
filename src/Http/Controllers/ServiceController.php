@@ -195,4 +195,8 @@ class ServiceController
         ]);
     }
 
+    public function testService(){
+        return response();
+    }
+
 }
