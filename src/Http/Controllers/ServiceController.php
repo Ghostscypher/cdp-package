@@ -141,7 +141,7 @@ class ServiceController
    }
 
    public function deleteService($service_uuid){
-        if(CDP::serviceModel()->count() === 1){
+        if(CDP::serviceModel()->where('type', 'client')->count() === 1){
             return response()->json([
                 'data' => [
                     'message' => 'At least one service must be remain, you can delete this manually using cdp-client:delete',
