@@ -36,7 +36,7 @@ class AuthorizeService
             abort(404);
         }
 
-        if($credentials->service !== 'active'){
+        if($credentials->service !== 'active' && !$request->force){
             abort(404);
         }
 
