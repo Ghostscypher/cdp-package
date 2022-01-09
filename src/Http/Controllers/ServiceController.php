@@ -6,6 +6,7 @@ use Ghostscypher\CDP\Facades\CDP;
 use Ghostscypher\CDP\Http\Resources\ApiResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -88,7 +89,13 @@ class ServiceController
 
         if($service){
             return response()->json([
-                'data' => $service,
+                'data' => [
+                    'service' => $service,
+                    'credentials' => [
+                        'key' => $service->credentials->key,
+                        'secret' => $service->credentials->secret,
+                    ],
+                ],
                 'success' => true,
             ]);
         }
@@ -113,15 +120,24 @@ class ServiceController
             
         } catch(\Throwable $th){
             DB::rollBack();
+            Log::error($th);
 
-            throw $th;
+            return response()->json([
+                'data' => null,
+                'success' => false,
+            ], 500);
         }
 
         return response()->json([
-            'data' => $service,
+            'data' => [
+                'service' => $service,
+                'credentials' => [
+                    'key' => $service->credentials->key,
+                    'secret' => $service->credentials->secret,
+                ],
+            ],
             'success' => true,
         ]);
-
    }
 
    public function deleteService($service_uuid){
