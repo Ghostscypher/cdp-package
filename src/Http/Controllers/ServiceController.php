@@ -141,7 +141,16 @@ class ServiceController
    }
 
    public function deleteService($service_uuid){
-       $service = CDP::serviceModel()->where([
+        if(CDP::serviceModel()->count() === 1){
+            return response()->json([
+                'data' => [
+                    'message' => 'At least one service must be remain, you can delete this manually using cdp-client:delete',
+                ],
+                'success' => false,
+            ], 400);
+        }
+
+        $service = CDP::serviceModel()->where([
                     'type' => 'client',
                     'service_uuid' => $service_uuid,
                 ])->firstOrFail();
@@ -153,5 +162,37 @@ class ServiceController
             'success' => true,
         ]);
    }
+
+   public function activateService($service_uuid){
+        $service = CDP::serviceModel()->where([
+                    'type' => 'client',
+                    'service_uuid' => $service_uuid,
+                ])->firstOrFail();
+
+        $service->update([
+            'status' => 'active',
+        ]);
+
+        return response()->json([
+            'data' => null,
+            'success' => true,
+        ]);
+    }
+
+    public function deActivateService($service_uuid){
+        $service = CDP::serviceModel()->where([
+                    'type' => 'client',
+                    'service_uuid' => $service_uuid,
+                ])->firstOrFail();
+
+        $service->update([
+            'status' => 'inactive',
+        ]);
+
+        return response()->json([
+            'data' => null,
+            'success' => true,
+        ]);
+    }
 
 }

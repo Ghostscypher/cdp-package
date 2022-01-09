@@ -32,7 +32,11 @@ class AuthorizeService
             'secret' => $authorization[1],
         ])->with('service')->first();
 
-        if($credentials === null){
+        if($credentials === null || $credentials->service === null){
+            abort(404);
+        }
+
+        if($credentials->service !== 'active'){
             abort(404);
         }
 
