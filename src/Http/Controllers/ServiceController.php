@@ -81,7 +81,7 @@ class ServiceController
         $url = sprintf("%s://%s", $url['scheme'], $url['host']);
         
         $service = CDP::serviceModel()
-            ->with(['credentials'])
+            ->with(['credential'])
             ->where([
                 'product_name' => $request->product_name,
                 'deployment_url' => $url,
@@ -92,8 +92,8 @@ class ServiceController
                 'data' => [
                     'service' => $service,
                     'credentials' => [
-                        'key' => $service->credentials->key,
-                        'secret' => $service->credentials->secret,
+                        'key' => $service->credential->key,
+                        'secret' => $service->credential->secret,
                     ],
                 ],
                 'success' => true,
@@ -132,8 +132,8 @@ class ServiceController
             'data' => [
                 'service' => $service,
                 'credentials' => [
-                    'key' => $service->credentials->key,
-                    'secret' => $service->credentials->secret,
+                    'key' => $service->credential->key,
+                    'secret' => $service->credential->secret,
                 ],
             ],
             'success' => true,
