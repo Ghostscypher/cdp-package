@@ -77,7 +77,7 @@ class ServiceController
                 ->setStatusCode(422);
         }
 
-        $url = parse_url($validator->deployment_url);
+        $url = parse_url($request->deployment_url);
         $url = sprintf("%s://%s", $url['scheme'], $url['host']);
         
         $service = CDP::serviceModel()
