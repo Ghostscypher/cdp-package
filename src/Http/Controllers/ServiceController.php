@@ -196,7 +196,7 @@ class ServiceController
     }
 
     public function testService(){
-        return response();
+        return response()->noContent();
     }
 
 }
